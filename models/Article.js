@@ -1,13 +1,12 @@
-var mongoose = require("mongoose");
+const mongoose = require("mongoose");
 
 // Save reference to Schema constructor
-var Schema = mongoose.Schema;
+const Schema = mongoose.Schema;
 
-var ArticleSchema = new Schema({
+const ArticleSchema = new Schema({
   title: {
     type: String,
-    required: true,
-    // unique: true // This wasn't working, but upsert did
+    required: true
   },
   date: {
     type: String,
@@ -15,10 +14,8 @@ var ArticleSchema = new Schema({
   },
   url: {
     type: String,
-    required: true
-  },
-  content: {
-    type: String
+    required: true,
+    unique: true // This wasn't working, but upsert did
   },
   saved: {
     type: Boolean,
