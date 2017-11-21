@@ -9,16 +9,25 @@ const Results = () =>
             <h1>Results</h1>
           </div>
           <div class="panel-body">
-            
-            <button class="btn btn-md btn-primary pull-right change-saved" data-id="">Save Article</button>
 
-            <h4>Article Title</h4>
+            <div class="article-wrapper">
+              <div class="panel panel-default" style={{marginBottom: '5px'}}>
+                <div class="panel-body">
+                  
+                  <button class="btn btn-md btn-primary pull-right change-saved" data-id="">Save</button>
 
-            {/*<p>
-              <a href="#" target="_blank">Read More</a>
-            </p>*/}
+                  <h4>Article Title</h4>
 
-          </div>
+                  {/*<p>
+                    <a href="#" target="_blank">Read More</a>
+                  </p>*/}
+
+                </div>
+              </div>
+            </div>
+
+          </div>{/* end panel body */}
+
         </div>
       </div>
     </div>
