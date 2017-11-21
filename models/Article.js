@@ -17,11 +17,6 @@ const ArticleSchema = new Schema({
     required: true,
     unique: true // This wasn't working, but upsert did
   },
-  saved: {
-    type: Boolean,
-    default: false,
-    required: true
-  },
   comment: [{
     type: Schema.Types.ObjectId,
     ref: "Comment"

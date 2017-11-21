@@ -1,20 +1,20 @@
 import React from "react";
 
 const Results = () =>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-10 col-md-offset-1">
-        <div class="panel panel-default">
-          <div class="panel-heading">
+  <div className="container">
+    <div className="row">
+      <div className="col-md-10 col-md-offset-1">
+        <div className="panel panel-default">
+          <div className="panel-heading">
             <h1>Results</h1>
           </div>
-          <div class="panel-body">
+          <div className="panel-body">
 
-            <div class="article-wrapper">
-              <div class="panel panel-default" style={{marginBottom: '5px'}}>
-                <div class="panel-body">
+            <div className="article-wrapper">
+              <div className="panel panel-default" style={{marginBottom: '5px'}}>
+                <div className="panel-body">
                   
-                  <button class="btn btn-md btn-primary pull-right change-saved" data-id="">Save</button>
+                  <button className="btn btn-md btn-primary pull-right change-saved" data-id="">Save</button>
 
                   <h4>Article Title</h4>
 
