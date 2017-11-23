@@ -102,7 +102,7 @@ class Search extends Component {
           </div>
 
         {/* ONLY RENDERS RESULTS COMPONENT WHEN RESULTS STATE NOT EMPTY */}
-        {this.state.results.length &&
+        {this.state.results.length > 0 &&
           <Results results={this.state.results} handleSave={this.handleSave} />
         }
         
