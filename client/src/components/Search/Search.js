@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+// import moment from 'moment';
 import API from "../../utils/API";
 import Results from "../Results";
 
@@ -11,12 +12,19 @@ class Search extends Component {
     endyear: ""
   };
 
-  loadArticles = (event) => {
+  loadArticles = event => {
     event.preventDefault();
     API.getArticles(this.state.topic, this.state.startyear, this.state.endyear)
       .then(res => {
-        this.setState({ results: res, topics: "", startyear: "", endyear: "" });
-        // console.log(this.state.results)
+          // console.log('res[0].pub_date: ', res[0].pub_date);
+      // TRYING TO MAP A NEW FORMAT FOR ALL RESULTS DATES BEFORE STATE SET
+      // BUT CAN'T GET IT WORKING, SO HANDLED IN RESULTS.JS ON DISPLAY
+        // res.map( (res, i) => (
+        //   // console.log(res.pub_date)
+        //   res.pub_date = moment(res.pub_date, 'MMMM Do, YYYY, h:mma')
+        // ))
+        this.setState({ results: res, topic: "", startyear: "", endyear: "" });
+        // console.log('loadArticles() this.state.results: ', this.state.results);
       })
       .catch(err => console.log(err));
   };
@@ -28,16 +36,16 @@ class Search extends Component {
     });
   };
 
-  handleSave = event => {
-    event.preventDefault();
-      console.log(this.state.topic);
-    if (this.state.topic && this.state.startyear && this.state.endyear) {
+  handleSave = targetIndex => {
+    if (this.state.results[targetIndex].headline.main && this.state.results[targetIndex].pub_date && this.state.results[targetIndex].web_url) {
       API.saveArticle({
-        topic: this.state.topic,
-        startyear: this.state.startyear,
-        endyear: this.state.endyear
+        title: this.state.results[targetIndex].headline.main,
+        date: this.state.results[targetIndex].pub_date,
+        url: this.state.results[targetIndex].web_url
       })
-        .then(res => this.loadArticles())
+        .then(
+          // res => this.loadArticles()
+        )
         .catch(err => console.log(err));
     }
   };
@@ -85,7 +93,7 @@ class Search extends Component {
                           id="endyear"
                         />
                       </div>
-                      <input type="submit" className="btn btn-default btn-primary"/>
+                      <button type="submit" className="btn btn-default btn-primary">Search</button>
                     </form>
                   </div>
                 </div>
@@ -93,7 +101,11 @@ class Search extends Component {
             </div>
           </div>
 
-        <Results results={this.state.results} />
+        {/* ONLY RENDERS RESULTS COMPONENT WHEN RESULTS STATE NOT EMPTY */}
+        {this.state.results.length &&
+          <Results results={this.state.results} handleSave={this.handleSave} />
+        }
+        
 
       </div>
     );

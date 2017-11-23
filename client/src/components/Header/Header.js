@@ -4,7 +4,7 @@ const Header = () =>
   <div className="page-header text-center ">
    <h1>
       New York Times Article Scrubber<br/>
-      <small>Search for and annotate articles of interest!</small>
+      <small>Search for, save, and annotate articles of interest!</small>
    </h1>
    
 </div>;

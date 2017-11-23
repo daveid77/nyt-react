@@ -1,7 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-// const routes = require("./routes");
+const routes = require("./routes");
 const app = express();
 const PORT = process.env.PORT || 3001;
 
@@ -16,9 +16,6 @@ const db = require("./models");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// Add routes, both API and view
-// app.use(routes);
-
 // Set up promises with mongoose
 mongoose.Promise = global.Promise;
 // Connect to the Mongo DB
@@ -29,11 +26,14 @@ mongoose.connect(
   }
 );
 
+// Add routes, both API and view
+app.use(routes);
+
 // Send every request to the React app
 // Define any API routes before this runs
-app.get("*", function(req, res) {
-  res.sendFile(path.join(__dirname, "./client/build/index.html"));
-});
+// app.get("*", function(req, res) {
+//   res.sendFile(path.join(__dirname, "./client/build/index.html"));
+// });
 
 app.listen(PORT, function() {
   console.log(`🌎 ==> Server now on port ${PORT}!`);
