@@ -7,20 +7,17 @@ class Search extends Component {
   state = {
     results: [],
     topic: "",
-    startdate: "",
-    enddate: ""
+    startyear: "",
+    endyear: ""
   };
 
   loadArticles = (event) => {
     event.preventDefault();
-      // alert('hell');
-      console.log(this.state.topic);
-    API.getArticles(this.state.topic, this.state.startdate, this.state.enddate)
+    API.getArticles(this.state.topic, this.state.startyear, this.state.endyear)
       .then(res => {
-        this.setState({ results: res, topics: "", startdate: "", enddate: "" });
-        console.log(this.state.results)
-      }
-      )
+        this.setState({ results: res, topics: "", startyear: "", endyear: "" });
+        // console.log(this.state.results)
+      })
       .catch(err => console.log(err));
   };
 
@@ -29,17 +26,16 @@ class Search extends Component {
     this.setState({
       [name]: value
     });
-      // console.log(this.state.topic);
   };
 
-  handleFormSubmit = event => {
+  handleSave = event => {
     event.preventDefault();
       console.log(this.state.topic);
-    if (this.state.topic && this.state.startdate && this.state.enddate) {
+    if (this.state.topic && this.state.startyear && this.state.endyear) {
       API.saveArticle({
         topic: this.state.topic,
-        startdate: this.state.startdate,
-        enddate: this.state.enddate
+        startyear: this.state.startyear,
+        endyear: this.state.endyear
       })
         .then(res => this.loadArticles())
         .catch(err => console.log(err));
@@ -68,25 +64,25 @@ class Search extends Component {
                         />
                       </div>
                       <div className="form-group">
-                        <label htmlFor="startdate">Start Date:</label><br/>
+                        <label htmlFor="startyear">Start Year:</label><br/>
                         <input 
-                          value={this.state.startdate}
+                          value={this.state.startyear}
                           onChange={this.handleInputChange}
-                          name="startdate"
-                          placeholder="YYYYMMDD" 
+                          name="startyear"
+                          placeholder="YYYY" 
                           className="form-control" 
-                          id="startdate"
+                          id="startyear"
                         />
                       </div>
                       <div className="form-group">
-                        <label htmlFor="enddate">End Date:</label><br/>
+                        <label htmlFor="endyear">End Year:</label><br/>
                         <input 
-                          value={this.state.enddate}
+                          value={this.state.endyear}
                           onChange={this.handleInputChange}
-                          name="enddate"
-                          placeholder="YYYYMMDD"
+                          name="endyear"
+                          placeholder="YYYY"
                           className="form-control" 
-                          id="enddate"
+                          id="endyear"
                         />
                       </div>
                       <input type="submit" className="btn btn-default btn-primary"/>
