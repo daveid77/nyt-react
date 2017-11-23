@@ -13,7 +13,7 @@ const Results = props => {
               </div>
               <div className="panel-body">
                 
-                  {props.results.map( (results , i) => (
+                  {props.results.slice(0, 5).map( (results , i) => (
                     <div className="article-wrapper" key={i}>
                       <div className="panel panel-default" style={{marginBottom: '5px'}}>
                         <div className="panel-body">
