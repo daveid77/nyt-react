@@ -3,7 +3,7 @@ import React from "react";
 import Header from "../Header";
 import Search from "../Search";
 // import Results from "../Results";
-import Saved from "../Saved";
+// import Saved from "../Saved";
 
 const App = () =>
   <div>
@@ -11,7 +11,7 @@ const App = () =>
     <div>
       <Search />
       {/*<Results />*/}
-      <Saved />
+      {/*<Saved />*/}
     </div>
   </div>;
 

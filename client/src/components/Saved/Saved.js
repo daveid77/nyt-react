@@ -1,74 +1,56 @@
 import React from "react";
+import Moment from 'react-moment';
 
-const Saved = () =>
-  <div className="container">
-    <div className="row">
-      <div className="col-md-10 col-md-offset-1">
-        <div className="panel panel-default">
-          <div className="panel-heading">
-            <h1>Saved</h1>
+const Saved = props => {
+  return (
+
+    <div className="container">
+      <div className="row">
+        <div className="col-md-10 col-md-offset-1">
+          <div className="panel panel-default">
+            <div className="panel-heading">
+              <h1>Saved</h1>
+            </div>
+            <div className="panel-body">
+
+              {props.saved.map( (saved , i) => (
+                <div className="article-wrapper" key={i}>
+                  <div className="panel panel-default" style={{marginBottom: '5px'}}>
+                    <div className="panel-body">
+                      
+                      <button className="btn btn-md btn-primary pull-right change-saved" data-id="" onClick={() => props.deleteArticle(i)}>Remove Article</button>
+                      
+                      {/*<button className="btn btn-md btn-primary pull-right change-saved" data-id="" style={{marginRight: '10px'}}>Add Annotation</button>*/}
+
+                      <h4>{saved.title}</h4>
+
+                      <p>
+                        <a href={saved.url} target="_blank">Read Article</a>
+                      </p>
+
+                      {/* <p>Publish Date: {results.pub_date}</p> */}
+                            <p>Publish Date: <Moment format="MMMM Do, YYYY, h:mma">{saved.date}</Moment></p>
+
+                    </div>
+                  </div>
+
+                  {/*<div className="panel panel-default">
+                    <div className="panel-body">
+
+                      <p>This article blew my mind!</p>
+
+                    </div>
+                  </div>*/}
+                </div>
+              ))}
+
+            </div>{/* end panel body */}
+
           </div>
-          <div className="panel-body">
-
-            <div className="article-wrapper">
-              <div className="panel panel-default" style={{marginBottom: '5px'}}>
-                <div className="panel-body">
-                  
-                  <button className="btn btn-md btn-primary pull-right change-saved" data-id="">Remove</button>
-                  
-                  <button className="btn btn-md btn-primary pull-right change-saved" data-id="" style={{marginRight: '10px'}}>Add Annotation</button>
-
-                  <h4>Article Title</h4>
-                  <p>Date Saved: 10/14/17</p>
-
-                  {/*<p>
-                    <a href="#" target="_blank">Read More</a>
-                  </p>*/}
-
-                </div>
-              </div>
-
-              <div className="panel panel-default">
-                <div className="panel-body">
-
-                  <p>This article blew my mind!</p>
-
-                </div>
-              </div>
-            </div>
-
-            <div className="article-wrapper">
-              <div className="panel panel-default" style={{marginBottom: '5px'}}>
-                <div className="panel-body">
-                  
-                  <button className="btn btn-md btn-primary pull-right change-saved" data-id="">Remove</button>
-                  
-                  <button className="btn btn-md btn-primary pull-right change-saved" data-id="" style={{marginRight: '10px'}}>Add Annotation</button>
-
-                  <h4>Article Title #2</h4>
-                  <p>Date Saved: 10/14/17</p>
-
-                  {/*<p>
-                    <a href="#" target="_blank">Read More</a>
-                  </p>*/}
-
-                </div>
-              </div>
-
-              <div className="panel panel-default">
-                <div className="panel-body">
-
-                  <p>This article sucks, but I saved it anyway.</p>
-
-                </div>
-              </div>
-            </div>
-
-          </div>{/* end panel body */}
-
         </div>
       </div>
     </div>
-  </div>;
+
+)};
 
 export default Saved;

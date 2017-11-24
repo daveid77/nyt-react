@@ -2,6 +2,7 @@ import React, { Component } from "react";
 // import moment from 'moment';
 import API from "../../utils/API";
 import Results from "../Results";
+import Saved from "../Saved";
 
 class Search extends Component {
 
@@ -9,12 +10,52 @@ class Search extends Component {
     results: [],
     topic: "",
     startyear: "",
-    endyear: ""
+    endyear: "",
+    articles: []
   };
 
-  loadArticles = event => {
+  componentDidMount() {
+    this.loadArticles();
+  }
+
+  loadArticles = () => {
+    API.getArticles()
+      .then(res =>
+        this.setState({ articles: res.data})
+      )
+      .catch(err => console.log(err));
+  };
+
+  saveArticle = targetIndex => {
+    if (this.state.results[targetIndex].headline.main && this.state.results[targetIndex].pub_date && this.state.results[targetIndex].web_url) {
+      API.saveArticle({
+        title: this.state.results[targetIndex].headline.main,
+        date: this.state.results[targetIndex].pub_date,
+        url: this.state.results[targetIndex].web_url
+      })
+        .then(
+          res => this.loadArticles()
+        )
+        .catch(err => console.log(err));
+    }
+  };
+
+  deleteArticle = id => {
+    API.deleteArticle(id)
+      .then(res => this.loadArticles())
+      .catch(err => console.log(err));
+  };
+
+  handleInputChange = event => {
+    const { name, value } = event.target;
+    this.setState({
+      [name]: value
+    });
+  };
+
+  handleFormSubmit = event => {
     event.preventDefault();
-    API.getArticles(this.state.topic, this.state.startyear, this.state.endyear)
+    API.apiArticles(this.state.topic, this.state.startyear, this.state.endyear)
       .then(res => {
           // console.log('res[0].pub_date: ', res[0].pub_date);
       // TRYING TO MAP A NEW FORMAT FOR ALL RESULTS DATES BEFORE STATE SET
@@ -29,27 +70,6 @@ class Search extends Component {
       .catch(err => console.log(err));
   };
 
-  handleInputChange = event => {
-    const { name, value } = event.target;
-    this.setState({
-      [name]: value
-    });
-  };
-
-  handleSave = targetIndex => {
-    if (this.state.results[targetIndex].headline.main && this.state.results[targetIndex].pub_date && this.state.results[targetIndex].web_url) {
-      API.saveArticle({
-        title: this.state.results[targetIndex].headline.main,
-        date: this.state.results[targetIndex].pub_date,
-        url: this.state.results[targetIndex].web_url
-      })
-        .then(
-          // res => this.loadArticles()
-        )
-        .catch(err => console.log(err));
-    }
-  };
-
   render() {
     return (
       <div>
@@ -57,9 +77,11 @@ class Search extends Component {
             <div className="row">
               <div className="col-md-10 col-md-offset-1">
                 <div className="panel panel-default">
-                  <div className="panel-body">
+                  <div className="panel-heading">
                     <h1>Search</h1>
-                    <form onSubmit={this.loadArticles}>
+                  </div>
+                  <div className="panel-body">
+                    <form onSubmit={this.handleFormSubmit}>
                       <div className="form-group">
                         <label htmlFor="topic">Topic:</label><br/>
                         <input
@@ -101,11 +123,15 @@ class Search extends Component {
             </div>
           </div>
 
-        {/* ONLY RENDERS RESULTS COMPONENT WHEN RESULTS STATE NOT EMPTY */}
+      {/* ONLY RENDERS RESULTS COMPONENT WHEN RESULTS STATE NOT EMPTY */}
         {this.state.results.length > 0 &&
-          <Results results={this.state.results} handleSave={this.handleSave} />
+          <Results results={this.state.results} saveArticle={this.saveArticle} />
         }
-        
+
+      {/* ONLY RENDERS SAVED COMPONENT WHEN ARTICLES STATE NOT EMPTY */}
+        {this.state.articles.length > 0 &&
+          <Saved saved={this.state.articles} deleteArticle={this.deleteArticle} />
+        }
 
       </div>
     );
