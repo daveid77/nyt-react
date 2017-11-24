@@ -15,7 +15,7 @@ const ArticleSchema = new Schema({
   url: {
     type: String,
     required: true,
-    // unique: true // This wasn't working, but upsert did
+    unique: true 
   },
   comment: [{
     type: Schema.Types.ObjectId,
