@@ -13,33 +13,17 @@ export default {
         return res.data.response.docs;
       });
   },
-  // Gets all books
+  // Get all articles
   getArticles: function() {
     return axios.get("/api/articles");
   },
-  // Saves an article to the database
+  // Save an article to the database
   saveArticle: function(articleData) {
       console.log('saveArticle() articleData: ', articleData);
-    return axios.post("/api/books", articleData);
+    return axios.post("/api/articles", articleData);
   },
-  // Deletes the book with the given id
+  // Delete an article with the given id
   deleteArticle: function(id) {
     return axios.delete("/api/articles/" + id);
-  },
-  // // Gets all books
-  // getBooks: function() {
-  //   return axios.get("/api/books");
-  // },
-  // // Gets the book with the given id
-  // getBook: function(id) {
-  //   return axios.get("/api/books/" + id);
-  // },
-  // // Deletes the book with the given id
-  // deleteBook: function(id) {
-  //   return axios.delete("/api/books/" + id);
-  // },
-  // // Saves a book to the database
-  // saveBook: function(bookData) {
-  //   return axios.post("/api/books", bookData);
-  // }
+  }
 };

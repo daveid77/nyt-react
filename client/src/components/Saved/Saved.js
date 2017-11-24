@@ -18,7 +18,7 @@ const Saved = props => {
                   <div className="panel panel-default" style={{marginBottom: '5px'}}>
                     <div className="panel-body">
                       
-                      <button className="btn btn-md btn-primary pull-right change-saved" data-id="" onClick={() => props.deleteArticle(i)}>Remove Article</button>
+                      <button className="btn btn-md btn-primary pull-right change-saved" data-id="" onClick={() => props.deleteArticle(saved._id)}>Remove Article</button>
                       
                       {/*<button className="btn btn-md btn-primary pull-right change-saved" data-id="" style={{marginRight: '10px'}}>Add Annotation</button>*/}
 
