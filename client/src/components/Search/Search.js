@@ -32,7 +32,8 @@ class Search extends Component {
   });
 
   closeModal = () => this.setState({
-        open: false
+        open: false, 
+        comment: ""
       });
  
   saveComment = () => {
@@ -43,7 +44,8 @@ class Search extends Component {
       })
         .then(
           this.setState({
-            open: false
+            open: false, 
+            comment: ""
           }))
         .then(
           res => this.loadArticles()
@@ -128,7 +130,7 @@ class Search extends Component {
               value={this.state.comment}
               onChange={this.handleInputChange}
               name="comment"
-              placeholder="New Annotation"
+              placeholder="Enter new annotation"
               className="form-control" 
               id="comment">
             </textarea>

@@ -10,7 +10,7 @@ router.route("/")
 router
   .route("/:id")
   .get(articlesController.findById)
-  .post(articlesController.create)
+  .post(articlesController.comment)
   .put(articlesController.update)
   .delete(articlesController.remove);
 
