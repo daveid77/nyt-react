@@ -4,7 +4,7 @@ import API from "../../utils/API";
 import Results from "../Results";
 import Saved from "../Saved";
 import Modal from 'react-bootstrap-modal';
-import styles from '../../../node_modules/react-bootstrap-modal/lib/css/rbm-patch.css';
+// import styles from '../../../node_modules/react-bootstrap-modal/lib/css/rbm-patch.css';
 
 class Search extends Component {
 
