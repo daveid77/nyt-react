@@ -14,7 +14,7 @@ mongoose.connect(
 const articleSeed = [
   {
     title: "Spain and Catalonia Wrestle Over .Cat Internet Domain",
-    date: "2017-09-22T17:29:50+0000",
+    date: "2017-11-25T17:29:50+0000",
     url:
       "https://www.nytimes.com/2017/09/22/style/cat-domain-catalonia.html"
   },
