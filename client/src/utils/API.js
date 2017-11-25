@@ -25,5 +25,10 @@ export default {
   // Delete an article with the given id
   deleteArticle: function(id) {
     return axios.delete("/api/articles/" + id);
+  },
+  // Save a comment for a given article
+  saveComment: function(commentData) {
+      console.log('saveComment() commentData: ', commentData);
+    return axios.post("/api/articles/" + commentData.id, commentData);
   }
 };

@@ -3,6 +3,8 @@ import React, { Component } from "react";
 import API from "../../utils/API";
 import Results from "../Results";
 import Saved from "../Saved";
+import Modal from 'react-bootstrap-modal';
+import styles from '../../../node_modules/react-bootstrap-modal/lib/css/rbm-patch.css';
 
 class Search extends Component {
 
@@ -11,12 +13,44 @@ class Search extends Component {
     topic: "",
     startyear: "",
     endyear: "",
-    articles: []
+    articles: [],
+    open: false,
+    comment: "",
+    commentArticleId: "",
+    commentArticleTitle: ""
   };
 
   componentDidMount() {
-    this.loadArticles();
+    this.loadArticles()
   }
+
+  openModal = (commentArticleId, commentArticleTitle)  => this.setState({ 
+    open: true, 
+    comment: "", 
+    commentArticleId: commentArticleId, 
+    commentArticleTitle: commentArticleTitle
+  });
+
+  closeModal = () => this.setState({
+        open: false
+      });
+ 
+  saveComment = () => {
+    if (this.state.comment) {
+      API.saveComment({
+        id: this.state.commentArticleId,
+        body: this.state.comment
+      })
+        .then(
+          this.setState({
+            open: false
+          }))
+        .then(
+          res => this.loadArticles()
+        )
+        .catch(err => console.log(err));
+    }
+  };
 
   loadArticles = () => {
     API.getArticles()
@@ -73,64 +107,107 @@ class Search extends Component {
   render() {
     return (
       <div>
-          <div className="container">
-            <div className="row">
-              <div className="col-md-10 col-md-offset-1">
-                <div className="panel panel-default">
-                  <div className="panel-heading">
-                    <h1>Search</h1>
-                  </div>
-                  <div className="panel-body">
-                    <form onSubmit={this.handleFormSubmit}>
-                      <div className="form-group">
-                        <label htmlFor="topic">Topic:</label><br/>
-                        <input
-                          value={this.state.topic}
-                          onChange={this.handleInputChange}
-                          name="topic"
-                          placeholder="Enter Search Topic"
-                          className="form-control" 
-                          id="topic"
-                        />
-                      </div>
-                      <div className="form-group">
-                        <label htmlFor="startyear">Start Year:</label><br/>
-                        <input 
-                          value={this.state.startyear}
-                          onChange={this.handleInputChange}
-                          name="startyear"
-                          placeholder="YYYY" 
-                          className="form-control" 
-                          id="startyear"
-                        />
-                      </div>
-                      <div className="form-group">
-                        <label htmlFor="endyear">End Year:</label><br/>
-                        <input 
-                          value={this.state.endyear}
-                          onChange={this.handleInputChange}
-                          name="endyear"
-                          placeholder="YYYY"
-                          className="form-control" 
-                          id="endyear"
-                        />
-                      </div>
-                      <button type="submit" className="btn btn-default btn-primary">Search</button>
-                    </form>
-                  </div>
+
+        {/*<button type='button' onClick={() => this.setState({ open: true })}>Launch modal</button>*/}
+
+        <Modal
+          show={this.state.open}
+          onHide={this.closeModal}
+          aria-labelledby="ModalHeader"
+        >
+          <Modal.Header closeButton>
+            <Modal.Title id='ModalHeader'>{this.state.commentArticleTitle}</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <div className="panel panel-default">
+              <div className="panel-body">
+                <p>No annotations for this article yet.</p>
+              </div>
+            </div>
+            <textarea 
+              value={this.state.comment}
+              onChange={this.handleInputChange}
+              name="comment"
+              placeholder="New Annotation"
+              className="form-control" 
+              id="comment">
+            </textarea>
+          </Modal.Body>
+          <Modal.Footer>
+            {/*
+              // If you don't have anything fancy to do you can use
+              // the convenient `Dismiss` component, it will
+              // trigger `onHide` when clicked
+            */}
+            <Modal.Dismiss className='btn btn-default'>Cancel</Modal.Dismiss>
+ 
+            {/*
+              // Or you can create your own dismiss buttons
+            */}
+            <button className='btn btn-primary' onClick={this.saveComment}>
+              Save
+            </button>
+          </Modal.Footer>
+        </Modal>
+
+        <div className="container">
+          <div className="row">
+            <div className="col-md-10 col-md-offset-1">
+              <div className="panel panel-default">
+                <div className="panel-heading">
+                  <h1>Search</h1>
+                </div>
+                <div className="panel-body">
+                  <form onSubmit={this.handleFormSubmit}>
+                    <div className="form-group">
+                      <label htmlFor="topic">Topic:</label><br/>
+                      <input
+                        value={this.state.topic}
+                        onChange={this.handleInputChange}
+                        name="topic"
+                        placeholder="Enter Search Topic"
+                        className="form-control" 
+                        id="topic"
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label htmlFor="startyear">Start Year:</label><br/>
+                      <input 
+                        value={this.state.startyear}
+                        onChange={this.handleInputChange}
+                        name="startyear"
+                        placeholder="YYYY" 
+                        className="form-control" 
+                        id="startyear"
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label htmlFor="endyear">End Year:</label><br/>
+                      <input 
+                        value={this.state.endyear}
+                        onChange={this.handleInputChange}
+                        name="endyear"
+                        placeholder="YYYY"
+                        className="form-control" 
+                        id="endyear"
+                      />
+                    </div>
+                    <button type="submit" className="btn btn-default btn-primary">Search</button>
+                  </form>
                 </div>
               </div>
             </div>
           </div>
+        </div>
 
-      {/* ONLY RENDERS RESULTS COMPONENT WHEN RESULTS STATE NOT EMPTY */}
+        {/* ONLY RENDERS RESULTS COMPONENT WHEN RESULTS STATE NOT EMPTY */}
         {this.state.results.length > 0 &&
           <Results results={this.state.results} saveArticle={this.saveArticle} />
         }
 
-      {/* ONLY RENDERS SAVED COMPONENT WHEN ARTICLES STATE NOT EMPTY */}
+        {/* ONLY RENDERS SAVED COMPONENT WHEN ARTICLES STATE NOT EMPTY */}
         {this.state.articles.length > 0 &&
-          <Saved saved={this.state.articles} deleteArticle={this.deleteArticle} />
+          <Saved saved={this.state.articles} openModal={this.openModal} deleteArticle={this.deleteArticle} />
         }
 
       </div>

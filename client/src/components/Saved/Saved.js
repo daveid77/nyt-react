@@ -21,6 +21,7 @@ const Saved = props => {
                       <button className="btn btn-md btn-primary pull-right change-saved" data-id="" onClick={() => props.deleteArticle(saved._id)}>Remove Article</button>
                       
                       {/*<button className="btn btn-md btn-primary pull-right change-saved" data-id="" style={{marginRight: '10px'}}>Add Annotation</button>*/}
+                      <button type='button' className="btn btn-md btn-primary pull-right change-saved" style={{marginRight: '10px'}} onClick={() => props.openModal(saved._id, saved.title)}>Add Annotation</button>
 
                       <h4>{saved.title}</h4>
 
@@ -29,7 +30,11 @@ const Saved = props => {
                       </p>
 
                       {/* <p>Publish Date: {results.pub_date}</p> */}
-                            <p>Publish Date: <Moment format="MMMM Do, YYYY, h:mma">{saved.date}</Moment></p>
+                      <p>Publish Date: 
+                        <Moment format="MMMM Do, YYYY, h:mma">
+                          {saved.date}
+                        </Moment>
+                      </p>
 
                     </div>
                   </div>
