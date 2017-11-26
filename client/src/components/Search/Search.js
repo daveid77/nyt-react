@@ -4,7 +4,7 @@ import API from "../../utils/API";
 import Results from "../Results";
 import Saved from "../Saved";
 import Modal from 'react-bootstrap-modal';
-// import styles from '../../../node_modules/react-bootstrap-modal/lib/css/rbm-patch.css';
+import styles from '../../../node_modules/react-bootstrap-modal/lib/css/rbm-patch.css';
 
 class Search extends Component {
 
@@ -82,6 +82,12 @@ class Search extends Component {
       .catch(err => console.log(err));
   };
 
+  deleteComment = id => {
+    API.deleteComment(id)
+      .then(res => this.loadArticles())
+      .catch(err => console.log(err));
+  };
+
   handleInputChange = event => {
     const { name, value } = event.target;
     this.setState({
@@ -121,11 +127,11 @@ class Search extends Component {
             <Modal.Title id='ModalHeader'>{this.state.commentArticleTitle}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <div className="panel panel-default">
+            {/*<div className="panel panel-default">
               <div className="panel-body">
                 <p>No annotations for this article yet.</p>
               </div>
-            </div>
+            </div>*/}
             <textarea 
               value={this.state.comment}
               onChange={this.handleInputChange}
@@ -209,7 +215,7 @@ class Search extends Component {
 
         {/* ONLY RENDERS SAVED COMPONENT WHEN ARTICLES STATE NOT EMPTY */}
         {this.state.articles.length > 0 &&
-          <Saved saved={this.state.articles} openModal={this.openModal} deleteArticle={this.deleteArticle} />
+          <Saved saved={this.state.articles} openModal={this.openModal} deleteArticle={this.deleteArticle} deleteComment={this.deleteComment} />
         }
 
       </div>

@@ -9,7 +9,7 @@ export default {
     let url = `https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=${apikey}&q=${topic}&begin_date=${startYear}0101&end_date=${endYear}1231&fl=web_url,headline,pub_date`;
     return axios.get(url)
       .then(res => {
-          console.log(res.data.response.docs);
+          // console.log(res.data.response.docs);
         return res.data.response.docs;
       });
   },
@@ -30,5 +30,9 @@ export default {
   saveComment: function(commentData) {
       // console.log('saveComment() commentData: ', commentData);
     return axios.post("/api/articles/" + commentData.id, commentData);
+  },
+  // Delete an article with the given id
+  deleteComment: function(id) {
+    return axios.delete("/api/articles/comments/" + id);
   }
 };

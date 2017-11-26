@@ -5,6 +5,7 @@ module.exports = {
   findAll: function(req, res) {
     db.Article
       .find(req.query)
+      .populate("comment")
       .sort({ date: -1 })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
@@ -52,4 +53,23 @@ module.exports = {
         res.json(err);
       });
   },
+  removeComment: function(req, res) {
+    db.Comment
+      .findById({ _id: req.params.id })
+      .then(dbModel => dbModel.remove())
+      .then(dbModel => res.json(dbModel))
+      // .then(function() {
+      //   return db.Article.find({'comment': ObjectId(req.params.id)}, { $pull: { comment: { ObjectId: req.params.id } }});
+      // })
+      .catch(err => res.status(422).json(err));
+  }
 };
+
+// db.Article.find(
+//     {'comment': ObjectId(req.params.id)}, 
+//     { $pull: { comment: { ObjectId: req.params.id } }},
+// false,
+// true 
+// );
+
+

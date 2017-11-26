@@ -14,4 +14,9 @@ router
   .put(articlesController.update)
   .delete(articlesController.remove);
 
+// Matches with "/api/articles/:id"
+router
+  .route("/comments/:id")
+  .delete(articlesController.removeComment);
+
 module.exports = router;
