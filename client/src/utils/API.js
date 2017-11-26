@@ -19,7 +19,7 @@ export default {
   },
   // Save an article to the database
   saveArticle: function(articleData) {
-      console.log('saveArticle() articleData: ', articleData);
+      // console.log('saveArticle() articleData: ', articleData);
     return axios.post("/api/articles", articleData);
   },
   // Delete an article with the given id
@@ -28,7 +28,7 @@ export default {
   },
   // Save a comment for a given article
   saveComment: function(commentData) {
-      console.log('saveComment() commentData: ', commentData);
+      // console.log('saveComment() commentData: ', commentData);
     return axios.post("/api/articles/" + commentData.id, commentData);
   }
 };

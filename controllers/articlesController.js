@@ -16,7 +16,7 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   create: function(req, res) {
-      console.log(req.body);
+      // console.log(req.body);
     db.Article
       .create(req.body)
       .then(dbModel => res.json(dbModel))
@@ -36,7 +36,7 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   comment: function(req, res) {
-      console.log(req.body);
+      // console.log(req.body);
     db.Comment
       .create(req.body)
       .then(function(dbComment) {

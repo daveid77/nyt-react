@@ -30,7 +30,7 @@ const Saved = props => {
                       </p>
 
                       {/* <p>Publish Date: {results.pub_date}</p> */}
-                      <p>Publish Date: 
+                      <p>Publish Date: &nbsp;
                         <Moment format="MMMM Do, YYYY, h:mma">
                           {saved.date}
                         </Moment>
