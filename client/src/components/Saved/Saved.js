@@ -39,22 +39,8 @@ const Saved = props => {
 
                     </div>
                   </div>
-                  
-                  {/* ONLY RENDERS COMMENTS COMPONENT WHEN ARTICLES.COMMENT STATE NOT EMPTY */}
-                
-                  {saved.comment.map( (comments , i) => (
-                    <div className="panel panel-default" style={{marginBottom: '5px'}} key={i}>
-                      <div className="panel-body">
 
-                        <button className="btn btn-sm btn-danger pull-right change-saved" data-id="" onClick={() => props.deleteComment(comments._id)}>X</button>
-
-                        <p>{comments.body}</p>
-
-                      </div>
-                    </div>
-                  ))}
-
-                  <Comments />
+                  <Comments comments={saved.comment} deleteComment={props.deleteComment} />
 
                 </div>
               ))}
