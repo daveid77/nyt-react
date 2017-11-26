@@ -37,10 +37,10 @@ const Saved = props => {
                         </Moment>
                       </p>
 
+                      <Comments comments={saved.comment} deleteComment={props.deleteComment} />
+
                     </div>
                   </div>
-
-                  <Comments comments={saved.comment} deleteComment={props.deleteComment} />
 
                 </div>
               ))}
