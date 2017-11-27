@@ -26,7 +26,6 @@ const Results = props => {
                             <a href={results.web_url} target="_blank">Read Article</a>
                           </p>
 
-                          {/* <p>Publish Date: {results.pub_date}</p> */}
                           <p>Publish Date: <Moment format="MMMM Do, YYYY, h:mma">{results.pub_date}</Moment></p>
 
                         </div>

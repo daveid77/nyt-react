@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-// import moment from 'moment';
 import API from "../../utils/API";
 import Results from "../Results";
 import Saved from "../Saved";
@@ -99,7 +98,6 @@ class Search extends Component {
     event.preventDefault();
     API.apiArticles(this.state.topic, this.state.startyear, this.state.endyear)
       .then(res => {
-          // console.log('res[0].pub_date: ', res[0].pub_date);
       // TRYING TO MAP A NEW FORMAT FOR ALL RESULTS DATES BEFORE STATE SET
       // BUT CAN'T GET IT WORKING, SO HANDLED IN RESULTS.JS ON DISPLAY
         // res.map( (res, i) => (
@@ -107,7 +105,6 @@ class Search extends Component {
         //   res.pub_date = moment(res.pub_date, 'MMMM Do, YYYY, h:mma')
         // ))
         this.setState({ results: res, topic: "", startyear: "", endyear: "" });
-        // console.log('loadArticles() this.state.results: ', this.state.results);
       })
       .catch(err => console.log(err));
   };
@@ -115,8 +112,6 @@ class Search extends Component {
   render() {
     return (
       <div>
-
-        {/*<button type='button' onClick={() => this.setState({ open: true })}>Launch modal</button>*/}
 
         <Modal
           show={this.state.open}
@@ -127,11 +122,6 @@ class Search extends Component {
             <Modal.Title id='ModalHeader'>{this.state.commentArticleTitle}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            {/*<div className="panel panel-default">
-              <div className="panel-body">
-                <p>No annotations for this article yet.</p>
-              </div>
-            </div>*/}
             <textarea 
               value={this.state.comment}
               onChange={this.handleInputChange}
@@ -142,16 +132,7 @@ class Search extends Component {
             </textarea>
           </Modal.Body>
           <Modal.Footer>
-            {/*
-              // If you don't have anything fancy to do you can use
-              // the convenient `Dismiss` component, it will
-              // trigger `onHide` when clicked
-            */}
             <Modal.Dismiss className='btn btn-default'>Cancel</Modal.Dismiss>
- 
-            {/*
-              // Or you can create your own dismiss buttons
-            */}
             <button className='btn btn-primary' onClick={this.saveComment}>
               Save
             </button>
